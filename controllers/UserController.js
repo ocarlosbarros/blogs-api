@@ -10,7 +10,7 @@ const create = async (request, response, next) => {
     }
 };
 
-const findAll = async (request, response, next) => {
+const findAll = async (_request, response, next) => {
     try {
         const users = await User.findAll();
         return response.status(200).json(users);
