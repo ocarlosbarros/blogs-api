@@ -1,6 +1,6 @@
 const UserRouter = require('express').Router();
 const UserController = require('../controllers/UserController');
-const ValidateUser = require('../middlewares/validateUserMiddleware');
+const ValidateUser = require('../middleware/validateUserMiddleware');
 
 UserRouter.post('/', ValidateUser, UserController.create);
 
