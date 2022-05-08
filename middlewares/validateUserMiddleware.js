@@ -11,7 +11,7 @@ const validateUserMiddleware = (request, response, next) => {
     
     const { error } = userSchema.validate({ displayName, email, password });
 
-    if(error) throw error;
+    if (error) throw error;
 
     next();
 };
