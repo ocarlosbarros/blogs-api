@@ -3,7 +3,12 @@ const Joi = require('joi');
 const errorHandler = (error, _request, response, _next) => {
     if (error.message === 'Validation error') {
     return response.status(409)
-    .json({ message: 'User already registered' }); 
+                    .json({ message: 'User already registered' }); 
+}
+
+    if (error.message === 'Invalid fields') {
+    return response.status(400)
+                    .json({ message: error.message }); 
 }
     
     if (Joi.isError(error)) return response.status(400).json({ message: error.message });
