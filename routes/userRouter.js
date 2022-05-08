@@ -5,5 +5,6 @@ const EnsureAuthenticated = require('../middleware/ensureAuthenticated');
 
 UserRouter.post('/', ValidateUser, UserController.create);
 UserRouter.get('/', EnsureAuthenticated, UserController.findAll);
+UserRouter.get('/:id', EnsureAuthenticated, UserController.findById);
 
 module.exports = UserRouter;
