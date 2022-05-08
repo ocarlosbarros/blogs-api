@@ -19,7 +19,21 @@ const findAll = async (request, response, next) => {
     }
 };
 
+const findById = async (request, response, next) => {
+    const { id } = request.params;
+    try {
+        const founded = await User.findByPk(id);
+
+        if (!founded) return response.status(404).json({ message: 'User does not exist' });
+
+        return response.status(200).json(founded);
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     create,
     findAll,
+    findById,
 };
