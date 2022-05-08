@@ -10,6 +10,16 @@ const create = async (request, response, next) => {
     }
 };
 
+const findAll = async (request, response, next) => {
+    try {
+        const categories = await Category.findAll();
+        return response.status(200).json(categories);
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     create,
+    findAll,
 };
