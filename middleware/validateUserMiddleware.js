@@ -3,7 +3,7 @@ const Joi = require('joi');
 const userSchema = Joi.object({
     displayName: Joi.string().min(8),
     email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com'] } }).required(),
-    password: Joi.string().min(6).max(6).required(),
+    password: Joi.string().alphanum().length(6).required(),
 });
 
 const validateUserMiddleware = (request, response, next) => {
