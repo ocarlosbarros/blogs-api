@@ -10,7 +10,7 @@ const ensureAuthenticated = (request, response, next) => {
 
     try {
         const decoded = jwt.verify(authtoken, secret);
-        console.log(decoded);
+        request.user = decoded;
         next();
     } catch (error) {
         console.log(error.message);
