@@ -12,20 +12,19 @@ const jwtConfig = {
 const secret = process.env.JWT_SECRET;
 
 const authenticateUserService = async (email, password) => {
-    const [result] = await User.findAll({
+    const [user] = await User.findAll({
         where: {
             [Op.and]: [
               { email },
               { password },
             ],
           },
+        raw: true,
     });
 
-    if (!result) throw new Error('Invalid fields');
+    if (!user) throw new Error('Invalid fields');
 
-    const user = result.dataValues;
-
-    const token = jwt.sign({ data: user }, secret, jwtConfig);
+    const token = jwt.sign({ payload: user.id }, secret, jwtConfig);
     
     return token;
 };
