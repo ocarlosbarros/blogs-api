@@ -63,16 +63,14 @@ const findById = async (request, response, next) => {
 
 const update = async (request, response, next) => {
     const { id } = request.params;
-    const { payload: userId } = request.user;
     const { title, content, categoryIds } = request.body;
+    const { payload: userId } = request.user;
     
-    if (categoryIds || categoryIds === '') return response.status(400).json({ message: 'Categories cannot be edited' });
+    if (categoryIds || categoryIds === '') {
+        return response.status(400).json({ message: 'Categories cannot be edited' });
+    }
 
     try {
-        const founded = await BlogPost.findOne({ where: { [Op.and]: [{ id }, { userId }] } });
-        
-        if (!founded) return response.status(401).json({ message: 'Unauthorized user' });
-        
         await BlogPost.update({ title, content }, { where: { id } });
     
         const updated = await BlogPost.findOne({ attributes: 
