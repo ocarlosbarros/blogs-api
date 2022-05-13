@@ -1,19 +1,37 @@
 const Joi = require('joi');
 
-const postSchema = Joi.object({
+const postCreateSchema = Joi.object({
     title: Joi.string().required(),
     content: Joi.string().required(),
     categoryIds: Joi.array().items(Joi.number()).required(),
 });
 
-const validatePostMiddleware = (request, response, next) => {
+const postUpdateSchema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+});
+
+const createBlogPost = (request, response, next) => {
     const { title, content, categoryIds } = request.body;
     
-    const { error } = postSchema.validate({ title, content, categoryIds });
+    const { error } = postCreateSchema.validate({ title, content, categoryIds });
 
     if (error) throw error;
 
     next();
 };
 
-module.exports = validatePostMiddleware;
+const updateBlogPost = (request, response, next) => {
+    const { title, content } = request.body;
+    
+    const { error } = postUpdateSchema.validate({ title, content });
+
+    if (error) throw error;
+
+    next();
+};
+
+module.exports = {
+    createBlogPost,
+    updateBlogPost,
+};
