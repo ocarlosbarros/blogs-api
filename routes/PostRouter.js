@@ -9,5 +9,6 @@ PostRouter.get('/', EnsureAuthenticated, PostController.findAll);
 PostRouter.get('/:id', EnsureAuthenticated, PostController.findById);
 PostRouter.put('/:id', EnsureAuthenticated, EnsureAuthorized, 
 Validate.updateBlogPost, PostController.update);
+PostRouter.delete('/:id', EnsureAuthenticated, EnsureAuthorized, PostController.destroy);
 
 module.exports = PostRouter;
