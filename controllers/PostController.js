@@ -85,9 +85,21 @@ const update = async (request, response, next) => {
     }
 };
 
+const destroy = async (request, response, next) => {
+    const { id } = request.params;
+
+    try {
+        await BlogPost.destroy({ where: { id } });
+        return response.status(204).end();
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     create,
     findAll,
     findById,
     update,
+    destroy,
 };
