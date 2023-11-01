@@ -32,8 +32,17 @@ const findById = async (request, response, next) => {
     }
 };
 
+const destroy = async (request, response) => {
+    const { payload: userId } = request.user;
+        
+    await User.destroy({ where: { id: userId } });
+
+    return response.status(204).send();
+  };
+
 module.exports = {
     create,
     findAll,
     findById,
+    destroy,
 };
